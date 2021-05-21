@@ -12,9 +12,20 @@
     </style>
 </head>
 <body>
-    <h1>Helo page</h1>
+<h1 th:text="#{content.title}">Helo Page</h1>
+<p th:text="#{content.message}"></p>
+
+<!--    <p th:text="'from parameter... id=' + ${param.id[0] + ',name=' + param.name[0]}"></p>-->
+
+<!--    <p th:text="${#dates.format(new java.util.Date(), 'dd/MMM/yyyy HH:mm')}"></p>-->
+<!--    <p th:text="${#numbers.formatInteger(1234,7)}"></p>-->
+<!--    <p th:text="${#strings.toUpperCase('Welcome to Spring.')}"></p>-->
+<!--    <p th:text="${new java.util.Date().toString()}"></p>-->
+
+
+
 <!--    <pre th:text="${msg}">please wait...</pre>-->
-    <p th:text="${new java.util.Date().toString()}"></p>
+
 <!--    <form method="post" action="/myapi/modelview/">-->
 <!--        <input type = "text" name = "text1" th:value="${value}"/>-->
 <!--        <input type = "submit" value="Click" />-->
