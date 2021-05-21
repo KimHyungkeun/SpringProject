@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 // MainContoller를 통해 전반적인 통제를 담당한다
 //@RestController
 @Controller
-@RequestMapping(value="/myapi")
+@RequestMapping(value="/")
 public class MainController {
     HeloController heloController = new HeloController();
     HeloControllerOther heloControllerOther = new HeloControllerOther();

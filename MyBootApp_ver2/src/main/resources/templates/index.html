@@ -8,14 +8,36 @@
     <style>
         h1 { font-size:18pt; font-weight:bold; color:gray}
         body {font-size:13pt; color:gray; margin:5px 25px;}
-        pre {font-size:13pt; color:gray; padding:5px 10px; border:1px solid gray;}
+        /*pre {font-size:13pt; color:gray; padding:5px 10px; border:1px solid gray;}*/
+        tr { margin:5px; }
+        th { padding:5px; color:white; background:darkgray; }
+        td { padding:5px; color:black; background:#e0e0ff; }
     </style>
 </head>
 <body>
     <h1 th:text="#{content.title}">Helo Page</h1>
-    <p><a th:href="@{'/home/' + ${param.id[0]}}"></a></p>
+    <p th:utext="${msg}">message.</p> <!-- utext를 이용한  HTML코드를 출력-->
+
+    <!-- 리터럴 치환을 통해 문자열을 더 간편하게 덧붙인다.-->
+<!--    <div th:object="${object}">-->
+<!--        <p th:text="|my name is *{name}. mail address is *{value}.|">message</p>-->
+<!--    </div>-->
+
+    <!-- *를 통해 객체의 변수식을 직접 참조한다-->
+    <!--    <p th:text="${msg}">message.</p>-->
+<!--    <table th:object="${object}">-->
+<!--        <tr><th>ID</th><td th:text="*{id}"></td></tr>-->
+<!--        <tr><th>NAME</th><td th:text="*{name}"></td></tr>-->
+<!--        <tr><th>MAIL</th><td th:text="*{value}"></td></tr>-->
+<!--    </table>-->
+
+
+<!--    <p><a th:href="@{'/home/' + ${param.id[0]}}">link</a></p>-->
+
+    <!-- message.properties를 이용해 content.message에 내용을 담아 출력한다-. 이때 # 기호가 붙음 -->
 <!--    <p th:text="#{content.message}"></p>-->
 
+    <!-- $ 기호가 붙음으로써 매개변수에 접근할 수 있음 "url?id=ok&name=guilt" 같은 형식 -->
 <!--    <p th:text="'from parameter... id=' + ${param.id[0] + ',name=' + param.name[0]}"></p>-->
 
 <!--    <p th:text="${#dates.format(new java.util.Date(), 'dd/MMM/yyyy HH:mm')}"></p>-->
@@ -27,11 +49,11 @@
 
 <!--    <pre th:text="${msg}">please wait...</pre>-->
 
-<!--    <form method="post" action="/myapi/modelview/">-->
+<!--    <form method="post" action="/modelview/">-->
 <!--        <input type = "text" name = "text1" th:value="${value}"/>-->
 <!--        <input type = "submit" value="Click" />-->
 <!--    </form>-->
-<!--    <form method="post" action="/myapi/modelviewcontroller">-->
+<!--    <form method="post" action="/modelviewcontroller">-->
 <!--        <div>-->
 <!--            <input type="checkbox" id="check1" name="check1"/>-->
 <!--            <label for="check1">체크</label>-->

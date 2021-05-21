@@ -1,5 +1,6 @@
 package com.example.mybootapp.Controller;
 
+import com.example.mybootapp.vo.DataObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,9 +29,13 @@ public class HeloControllerOther {
     }
 
     // 사용자로부터 이름(name)을 입력받는다. (GET 방식)
+    // Chapter4. 템플릿 엔진. index.html에서 *{} 방식을통해 값을 직접 참조한다
     public ModelAndView index(ModelAndView mav) {
         mav.setViewName("index");
-        mav.addObject("msg","Please write name and send");
+        mav.addObject("msg", "message 1<hr/>message 2<br/>message 3");
+//        mav.addObject("msg","current data.");
+//        DataObject obj = new DataObject(123, "lee", "lee@flower");
+//        mav.addObject("object",obj);
         return mav;
     }
     // 이름을 입력받으면 "안녕하세요! (이름) 님!" 이라고 변경 될것이다 (POST방식)
