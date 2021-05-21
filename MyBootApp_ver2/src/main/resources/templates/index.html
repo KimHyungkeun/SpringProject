@@ -12,8 +12,9 @@
     </style>
 </head>
 <body>
-<h1 th:text="#{content.title}">Helo Page</h1>
-<p th:text="#{content.message}"></p>
+    <h1 th:text="#{content.title}">Helo Page</h1>
+    <p><a th:href="@{'/home/' + ${param.id[0]}}"></a></p>
+<!--    <p th:text="#{content.message}"></p>-->
 
 <!--    <p th:text="'from parameter... id=' + ${param.id[0] + ',name=' + param.name[0]}"></p>-->
 
