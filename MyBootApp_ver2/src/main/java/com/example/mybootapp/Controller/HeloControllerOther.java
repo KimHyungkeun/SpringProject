@@ -33,9 +33,9 @@ public class HeloControllerOther {
     public ModelAndView index(ModelAndView mav) {
         mav.setViewName("index");
         mav.addObject("msg", "message 1<hr/>message 2<br/>message 3");
-//        mav.addObject("msg","current data.");
-//        DataObject obj = new DataObject(123, "lee", "lee@flower");
-//        mav.addObject("object",obj);
+        mav.addObject("msg","current data.");
+        DataObject obj = new DataObject(123, "lee", "lee@flower");
+        mav.addObject("object",obj);
         return mav;
     }
     // 이름을 입력받으면 "안녕하세요! (이름) 님!" 이라고 변경 될것이다 (POST방식)

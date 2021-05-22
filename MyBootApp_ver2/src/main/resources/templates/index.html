@@ -6,79 +6,152 @@
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8"/>
     <style>
-        h1 { font-size:18pt; font-weight:bold; color:gray}
+        h1 { font-size:18pt; font-weight:bold; color:gray; }
         body {font-size:13pt; color:gray; margin:5px 25px;}
         /*pre {font-size:13pt; color:gray; padding:5px 10px; border:1px solid gray;}*/
-        tr { margin:5px; }
-        th { padding:5px; color:white; background:darkgray; }
-        td { padding:5px; color:black; background:#e0e0ff; }
+        /*tr { margin:5px; }*/
+        /*th { padding:5px; color:white; background:darkgray; }*/
+        /*td { padding:5px; color:black; background:#e0e0ff; }*/
     </style>
+    <style th:include="part :: frag_style"></style>
+<!-- 자바스크립트의 인라인 처리   -->
+<!--    <script th:inline="javascript">-->
+<!--        function action() {-->
+<!--            var val = document.getElementById("text1").value;-->
+<!--            var res = parseInt(val * ((100 + /*[[${tax}]]*/) / 100));-->
+<!--            document.getElementById("msg").innerHTML = "include tax: " + res;-->
+<!--        }-->
+<!--    </script>-->
 </head>
 <body>
     <h1 th:text="#{content.title}">Helo Page</h1>
-    <p th:utext="${msg}">message.</p> <!-- utext를 이용한  HTML코드를 출력-->
+    <div th:include="part :: frag_body">
+        <p>this is original content.</p>
+    </div>
+    <!--    <p id="msg"></p>-->
+    <!--    <input type = "text" id = "text1" />-->
+    <!--    <button onclick="action()">click</button>-->
 
+
+    <!-- inline 태그를 사용하면 일일이 th:text 등을 붙일필요없이 간단한게 만들수 있다.-->
+    <!--        <table th:inline="text">-->
+    <!--            <tr>-->
+    <!--                <th>NAME</th>-->
+    <!--                <th>MAIL</th>-->
+    <!--                <th>TEL</th>-->
+    <!--            </tr>-->
+    <!--            <tr th:each="obj:${data}">-->
+    <!--                <td>[[${obj.id}]]</td>-->
+    <!--                <td>[[${obj.name}]]</td>-->
+    <!--                <td>[[${obj.value}]]</td>-->
+    <!--            </tr>-->
+    <!--        </table>-->
+
+
+    <!-- 전처리 기능 __${val}__ -->
+    <!--    <p th:text="|expression[ ${check} ]|"></p>-->
+    <!--    <table th:object="${data.get(__${check}__)}">-->
+    <!--        <tr><th>ID</th><td th:text="*{id}"></td></tr>-->
+    <!--        <tr><th>NAME</th><td th:text="*{name}"></td></tr>-->
+    <!--        <tr><th>MAIL</th><td th:text="*{value}"></td></tr>-->
+    <!--    </table>-->
+
+    <!-- th:each를 통해 반복문과 같은 액션을 한다-->
+    <!--    <table>-->
+    <!--        <tr>-->
+    <!--            <th>NAME</th>-->
+    <!--            <th>MAIL</th>-->
+    <!--            <th>TEL</th>-->
+    <!--        </tr>-->
+    <!--        <tr th:each="obj:${data}">-->
+    <!--            <td th:text="${obj[0]}"></td>-->
+    <!--            <td th:text="${obj[1]}"></td>-->
+    <!--            <td th:text="${obj[2]}"></td>-->
+    <!--        </tr>-->
+    <!--    </table>-->
+
+    <!--    switch문을 통한 분기 설정-->
+    <!--    <div th:switch="${check}">-->
+    <!--        <p th:case="0" th:text="|${month} - Winter|"></p>-->
+    <!--        <p th:case="1" th:text="|${month} - Spring|"></p>-->
+    <!--        <p th:case="2" th:text="|${month} - Summer|"></p>-->
+    <!--        <p th:case="3" th:text="|${month} - Autumn|"></p>-->
+    <!--        <p th:case="4" th:text="|${month} - Winter|"></p>-->
+    <!--        <p th:case="*">?...</p>-->
+    <!--    </div>-->
+
+
+    <!-- if, unless 문을 통한 분기 설정. if else문과 비슷-->
+    <!--    <p th:if = "${check}" th:text="${id} + ' is ' + ${trueVal}" >message.</p>-->
+    <!--    <p th:unless = "${check}" th:text="${id} + ' is ' + ${falseVal}">message.</p>-->
+
+    <!--  조건식을 통해 짝수 홀수 판별 A?true:false-->
+    <!--    <p th:text="${id} + ' is ' + (${check} ? ${trueVal} : ${falseVal})"></p>-->
+
+    <!--    <p th:utext="${msg}">message.</p> &lt;!&ndash; utext를 이용한  HTML코드를 출력&ndash;&gt;-->
     <!-- 리터럴 치환을 통해 문자열을 더 간편하게 덧붙인다.-->
-<!--    <div th:object="${object}">-->
-<!--        <p th:text="|my name is *{name}. mail address is *{value}.|">message</p>-->
-<!--    </div>-->
+    <!--    <div th:object="${object}">-->
+    <!--        <p th:text="|my name is *{name}. mail address is *{value}.|">message</p>-->
+    <!--    </div>-->
 
     <!-- *를 통해 객체의 변수식을 직접 참조한다-->
     <!--    <p th:text="${msg}">message.</p>-->
-<!--    <table th:object="${object}">-->
-<!--        <tr><th>ID</th><td th:text="*{id}"></td></tr>-->
-<!--        <tr><th>NAME</th><td th:text="*{name}"></td></tr>-->
-<!--        <tr><th>MAIL</th><td th:text="*{value}"></td></tr>-->
-<!--    </table>-->
+    <!--    <table th:object="${object}">-->
+    <!--        <tr><th>ID</th><td th:text="*{id}"></td></tr>-->
+    <!--        <tr><th>NAME</th><td th:text="*{name}"></td></tr>-->
+    <!--        <tr><th>MAIL</th><td th:text="*{value}"></td></tr>-->
+    <!--    </table>-->
 
 
-<!--    <p><a th:href="@{'/home/' + ${param.id[0]}}">link</a></p>-->
+    <!--    <p><a th:href="@{'/home/' + ${param.id[0]}}">link</a></p>-->
 
     <!-- message.properties를 이용해 content.message에 내용을 담아 출력한다-. 이때 # 기호가 붙음 -->
-<!--    <p th:text="#{content.message}"></p>-->
+    <!--    <p th:text="#{content.message}"></p>-->
 
     <!-- $ 기호가 붙음으로써 매개변수에 접근할 수 있음 "url?id=ok&name=guilt" 같은 형식 -->
-<!--    <p th:text="'from parameter... id=' + ${param.id[0] + ',name=' + param.name[0]}"></p>-->
+    <!--    <p th:text="'from parameter... id=' + ${param.id[0] + ',name=' + param.name[0]}"></p>-->
 
-<!--    <p th:text="${#dates.format(new java.util.Date(), 'dd/MMM/yyyy HH:mm')}"></p>-->
-<!--    <p th:text="${#numbers.formatInteger(1234,7)}"></p>-->
-<!--    <p th:text="${#strings.toUpperCase('Welcome to Spring.')}"></p>-->
-<!--    <p th:text="${new java.util.Date().toString()}"></p>-->
+    <!--    <p th:text="${#dates.format(new java.util.Date(), 'dd/MMM/yyyy HH:mm')}"></p>-->
+    <!--    <p th:text="${#numbers.formatInteger(1234,7)}"></p>-->
+    <!--    <p th:text="${#strings.toUpperCase('Welcome to Spring.')}"></p>-->
+    <!--    <p th:text="${new java.util.Date().toString()}"></p>-->
 
 
 
-<!--    <pre th:text="${msg}">please wait...</pre>-->
+    <!--    <pre th:text="${msg}">please wait...</pre>-->
 
-<!--    <form method="post" action="/modelview/">-->
-<!--        <input type = "text" name = "text1" th:value="${value}"/>-->
-<!--        <input type = "submit" value="Click" />-->
-<!--    </form>-->
-<!--    <form method="post" action="/modelviewcontroller">-->
-<!--        <div>-->
-<!--            <input type="checkbox" id="check1" name="check1"/>-->
-<!--            <label for="check1">체크</label>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <input type="radio" id="radioA" name="radio1" value="male"/>-->
-<!--            <label for="radioA">남성</label>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <input type="radio" id="radioB" name="radio1" value="female"/>-->
-<!--            <label for="radioB">여성</label>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <select id="select1" name="select1" size="4">-->
-<!--                <option value="Windows">Windows</option>-->
-<!--                <option value="Mac">Mac</option>-->
-<!--                <option value="Linux">Linux</option>-->
-<!--            </select>-->
-<!--            <select id="select2" name="select2" size="4" multiple="multiple">-->
-<!--                <option value="Android">Android</option>-->
-<!--                <option value="iPhone">iPhone</option>-->
-<!--                <option value="Winfone">Windows</option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <input type="submit" value="Click"/>-->
-<!--    </form>-->
+    <!--    <form method="post" action="/modelview/">-->
+    <!--        <input type = "text" name = "text1" th:value="${value}"/>-->
+    <!--        <input type = "submit" value="Click" />-->
+    <!--    </form>-->
+    <!--    <form method="post" action="/modelviewcontroller">-->
+    <!--        <div>-->
+    <!--            <input type="checkbox" id="check1" name="check1"/>-->
+    <!--            <label for="check1">체크</label>-->
+    <!--        </div>-->
+    <!--        <div>-->
+    <!--            <input type="radio" id="radioA" name="radio1" value="male"/>-->
+    <!--            <label for="radioA">남성</label>-->
+    <!--        </div>-->
+    <!--        <div>-->
+    <!--            <input type="radio" id="radioB" name="radio1" value="female"/>-->
+    <!--            <label for="radioB">여성</label>-->
+    <!--        </div>-->
+    <!--        <div>-->
+    <!--            <select id="select1" name="select1" size="4">-->
+    <!--                <option value="Windows">Windows</option>-->
+    <!--                <option value="Mac">Mac</option>-->
+    <!--                <option value="Linux">Linux</option>-->
+    <!--            </select>-->
+    <!--            <select id="select2" name="select2" size="4" multiple="multiple">-->
+    <!--                <option value="Android">Android</option>-->
+    <!--                <option value="iPhone">iPhone</option>-->
+    <!--                <option value="Winfone">Windows</option>-->
+    <!--            </select>-->
+    <!--        </div>-->
+    <!--        <input type="submit" value="Click"/>-->
+    <!--    </form>-->
+
+
 </body>
 </html>

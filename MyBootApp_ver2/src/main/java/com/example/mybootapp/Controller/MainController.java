@@ -24,6 +24,14 @@ public class MainController {
         return heloController.idIndex(id);
     }
 
+    @RequestMapping(value="/modelviewview/{id}")
+    public ModelAndView myindex(@PathVariable int id, ModelAndView mov) {
+//        return heloController.index(mov)
+                return heloController.index(id, mov);
+    }
+
+    // --------------------------------------------------------------------------------------------
+
     @RequestMapping(value = "/model/{num}")
     public String showIndex(@PathVariable int num, Model model) {
         return heloControllerOther.index(num, model);
