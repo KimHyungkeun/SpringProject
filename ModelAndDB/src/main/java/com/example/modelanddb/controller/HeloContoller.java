@@ -2,9 +2,16 @@ package com.example.modelanddb.controller;
 
 import com.example.modelanddb.repositories.MyDataRepository;
 import com.example.modelanddb.vo.MyData;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import javax.annotation.PostConstruct;
+
+import javax.transaction.Transactional;
 
 @Controller
 public class HeloContoller {
@@ -15,13 +22,57 @@ public class HeloContoller {
     @Autowired
     MyDataRepository repository;
 
-    public ModelAndView index(ModelAndView mav) {
+
+    public ModelAndView index(MyData mydata, ModelAndView mav) {
         mav.setViewName("index");
+        mav.addObject("msg", "this is sample content.");
         //JpaRepository의 findAll 메소드를 통해 모든 엔터니가 자동 추출된다.
         // MyDataRepository가 JpaRepository로 부터 상속받고 있기 때문
-        Iterable<MyData> list = repository.findAll(); 
-        mav.addObject("data", list);
+        Iterable<MyData> list = repository.findAll();
+        mav.addObject("datalist", list);
         return mav;
 
+    }
+
+
+    public ModelAndView form(MyData mydata, ModelAndView mav) {
+        repository.saveAndFlush(mydata);
+        return new ModelAndView("redirect:/");
+    }
+
+//     아래 내용을 통해 미리 여러 데이터들을 생성해 놓는다.
+    public void init() {
+        MyData d1 = new MyData();
+        d1.setName("kim");
+        d1.setAge(123);
+        d1.setMail("kim@gilbut.co.kr");
+        repository.saveAndFlush(d1);
+
+        MyData d2 = new MyData();
+        d2.setName("lee");
+        d2.setAge(15);
+        d2.setMail("lee@flower");
+        d2.setMemo("my girl friend. ");
+        repository.saveAndFlush(d2);
+
+        MyData d3 = new MyData();
+        d3.setName("choi");
+        d3.setAge(37);
+        d3.setMail("choi@happy");
+        d3.setMemo("my work friend. ");
+        repository.saveAndFlush(d3);
+    }
+
+    public ModelAndView edit(MyData mydata, int id, ModelAndView mav) {
+        mav.setViewName("edit");
+        mav.addObject("title", "edit mydata.");
+        MyData data = repository.findBy((long)id);
+        mav.addObject("formModel", data);
+        return mav;
+    }
+
+    public ModelAndView update(MyData mydata, ModelAndView mav) {
+        repository.saveAndFlush(mydata);
+        return new ModelAndView("redirect:/");
     }
 }
