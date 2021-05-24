@@ -56,20 +56,24 @@ public class HeloController {
         d1.setName("kim");
         d1.setAge(123);
         d1.setMail("kim@gilbut.co.kr");
+//        d1.setMemo("090-999-999");
+        d1.setMemo("090999999"); // 하이픈(-) 없이 오직 번호만
         repository.saveAndFlush(d1);
 
         MyData d2 = new MyData();
         d2.setName("lee");
         d2.setAge(15);
         d2.setMail("lee@flower");
-        d2.setMemo("my girl friend. ");
+//        d2.setMemo("080-888-888");
+        d2.setMemo("080888888"); // 하이픈(-) 없이 오직 번호만
         repository.saveAndFlush(d2);
 
         MyData d3 = new MyData();
         d3.setName("choi");
         d3.setAge(37);
         d3.setMail("choi@happy");
-        d3.setMemo("my work friend. ");
+//        d3.setMemo("070-777-777");
+        d3.setMemo("070777777"); // 하이픈(-) 없이 오직 번호만
         repository.saveAndFlush(d3);
     }
     
