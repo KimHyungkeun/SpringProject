@@ -1,5 +1,6 @@
 package com.example.modelanddatabase.vo;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class MyData {
     @Id //해당 컬럼을 메인키로 지정
     @GeneratedValue(strategy = GenerationType.AUTO) //값을 자동 생성하며, strategy를 통해 생성 방식을 지정
     @Column
+    @NotNull
     private long id;
 
     @Column(length= 50, nullable = false)
