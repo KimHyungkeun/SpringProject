@@ -9,7 +9,7 @@
 - 제 4장, 템플릿 엔진 다루어보기. 사용하는 템플릿엔진은 thymeleaf 사용
 
 # 3. ModelAndDataBase
-- 제 5장, 모델과 데이터베이스. Entity와 Repository라는 클래스를 이용해 데이터베이스 처리 구현
+- 제 5장, 모델과 데이터베이스. Entity와 Repository라는 클래스를 이용해 데이터베이스 처리
 
 # 4. Project 
 - SpringBoot를 이용해 기본 출력이나 연산을 진행
