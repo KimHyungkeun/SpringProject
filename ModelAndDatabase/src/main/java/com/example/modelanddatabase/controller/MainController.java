@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
 
@@ -23,10 +25,17 @@ public class MainController {
     }
     
     // 새로 추가할 데이터를 생성한다
+//    @RequestMapping(value="/", method= RequestMethod.POST)
+//    @Transactional(readOnly = false)
+//    public ModelAndView form(@ModelAttribute("formModel") MyData mydata, ModelAndView mav) {
+//        return heloController.form(mydata, mav);
+//    }
+
+    // 새로 추가할 데이터를 생성하되, 올바른 데이터 입력이 들어가지 않으면 에러처리한다
     @RequestMapping(value="/", method= RequestMethod.POST)
     @Transactional(readOnly = false)
-    public ModelAndView form(@ModelAttribute("formModel") MyData mydata, ModelAndView mav) {
-        return heloController.form(mydata, mav);
+    public ModelAndView form(@ModelAttribute("formModel") @Validated MyData mydata, BindingResult result, ModelAndView mav) {
+        return heloController.form(mydata, result ,mav);
     }
     
     // 초기에 데이터 몇 개를 미리 생성해놓는다

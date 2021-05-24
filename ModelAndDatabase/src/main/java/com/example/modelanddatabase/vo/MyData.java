@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -22,12 +26,16 @@ public class MyData {
     private long id;
 
     @Column(length= 50, nullable = false)
+    @NotEmpty(message="공백 불가")
     private String name;
 
     @Column(length = 200, nullable = true)
+    @Email(message="메일 주소만")
     private String mail;
 
     @Column(nullable = true)
+    @Min(value=0, message="0이상")
+    @Max(value=200, message="200이하")
     private Integer age;
 
     @Column(nullable = true)

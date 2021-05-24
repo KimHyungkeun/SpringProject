@@ -5,6 +5,8 @@ import com.example.modelanddatabase.vo.MyData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 @Controller
 public class HeloController {
@@ -28,9 +30,24 @@ public class HeloController {
     }
     
     // 새 데이터를 추가하고 새로 추가된 형태의 테이블을 다시 새로 불러온다
-    public ModelAndView form(MyData mydata, ModelAndView mav) {
-        repository.saveAndFlush(mydata);
-        return new ModelAndView("redirect:/");
+//    public ModelAndView form(MyData mydata, ModelAndView mav) {
+//        repository.saveAndFlush(mydata);
+//        return new ModelAndView("redirect:/");
+//    }
+
+    public ModelAndView form(MyData mydata, BindingResult result, ModelAndView mav) {
+        ModelAndView res = null;
+        if (!result.hasErrors()) {
+            repository.saveAndFlush(mydata);
+            res = new ModelAndView("redirect:/");
+        } else {
+            mav.setViewName("index");
+            mav.addObject("msg", "sorry, error is occured...");
+            Iterable<MyData> list = repository.findAll();
+            mav.addObject("datalist", list);
+            res = mav;
+        }
+        return res;
     }
 
     //     아래 내용을 통해 미리 여러 데이터들을 생성해 놓는다.
