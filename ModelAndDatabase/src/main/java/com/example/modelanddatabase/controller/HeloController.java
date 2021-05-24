@@ -16,7 +16,7 @@ public class HeloController {
     @Autowired
     MyDataRepository repository;
 
-
+    // 현재 저장되어있는 모든 데이터를 보여준다.
     public ModelAndView index(MyData mydata, ModelAndView mav) {
         mav.setViewName("index");
         mav.addObject("msg", "this is sample content.");
@@ -25,10 +25,9 @@ public class HeloController {
         Iterable<MyData> list = repository.findAll();
         mav.addObject("datalist", list);
         return mav;
-
     }
-
-
+    
+    // 새 데이터를 추가하고 새로 추가된 형태의 테이블을 다시 새로 불러온다
     public ModelAndView form(MyData mydata, ModelAndView mav) {
         repository.saveAndFlush(mydata);
         return new ModelAndView("redirect:/");
@@ -56,7 +55,8 @@ public class HeloController {
         d3.setMemo("my work friend. ");
         repository.saveAndFlush(d3);
     }
-
+    
+    // /edit을 통해 들어와서 작동하는 메소드. edit메소드에서 데이터를 수정하고 update메소드를 통해 POST를 하여 변경을 완료한다
     public ModelAndView edit(MyData mydata, int id, ModelAndView mav) {
         mav.setViewName("edit");
         mav.addObject("title", "edit mydata.");
@@ -64,9 +64,26 @@ public class HeloController {
         mav.addObject("formModel", data);
         return mav;
     }
-
+    
+    // update 메소드를 통해 변경 내용을 최종 결정한다
     public ModelAndView update(MyData mydata, ModelAndView mav) {
         repository.saveAndFlush(mydata);
+        return new ModelAndView("redirect:/");
+    }
+    
+    // /delete를 통해 들어와서 작동하는 메소드
+    public ModelAndView delete(int id, ModelAndView mav) {
+        mav.setViewName("delete");
+        mav.addObject("title", "delete mydata.");
+        MyData data = repository.getById((long)id);
+        mav.addObject("formModel", data);
+        return mav;
+    }
+
+    // remove 메소드를 통해 삭제를 최종 결정한다
+    public ModelAndView remove(long id, ModelAndView mav) {
+        // JpaRepository 상으로는 deleteById가 맞는 메소드이다
+        repository.deleteById(id);
         return new ModelAndView("redirect:/");
     }
 }
