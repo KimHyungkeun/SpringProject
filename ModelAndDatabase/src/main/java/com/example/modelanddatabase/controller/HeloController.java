@@ -1,7 +1,7 @@
-package com.example.modelanddb.controller;
+package com.example.modelanddatabase.controller;
 
-import com.example.modelanddb.repositories.MyDataRepository;
-import com.example.modelanddb.vo.MyData;
+import com.example.modelanddatabase.repositories.MyDataRepository;
+import com.example.modelanddatabase.vo.MyData;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,8 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 @Controller
-public class HeloContoller {
-    
+public class HeloController {
+
     // @Autowired는 애플리케이션에 있는 Bean 객체와 연동하기 위함
     // 1) 앱 실행시에 @Repository가 붙은 인터페이스를 자동 검색해서 자동으로 클래스를 만들고, 해당 인스턴스를 애플리케이션에 Bean으로 등록
     // 2) 컨트롤러 등의 클래스가 로드될때 @Autowired가 설정된 필드가 있으면 등록 완료된 Bean에서 동일 클래스를 검색하여 자동으로 해당 필드에 할당
@@ -41,7 +41,7 @@ public class HeloContoller {
 //        return new ModelAndView("redirect:/");
 //    }
 
-//     아래 내용을 통해 미리 여러 데이터들을 생성해 놓는다.
+    //     아래 내용을 통해 미리 여러 데이터들을 생성해 놓는다.
     public void init() {
         MyData d1 = new MyData();
         d1.setName("kim");

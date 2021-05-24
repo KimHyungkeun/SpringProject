@@ -1,7 +1,7 @@
-package com.example.modelanddb.controller;
+package com.example.modelanddatabase.controller;
 
-import com.example.modelanddb.vo.MyData;
-import com.example.modelanddb.repositories.MyDataRepository;
+import com.example.modelanddatabase.vo.MyData;
+import com.example.modelanddatabase.repositories.MyDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,33 +21,33 @@ import javax.annotation.PostConstruct;
 public class MainController {
 
     @Autowired
-    HeloContoller heloContoller;
+    HeloController heloController;
 
 
 
 //    @RequestMapping(value="/", method= RequestMethod.GET)
 //    public ModelAndView index(@ModelAttribute("formModel") MyData mydata, ModelAndView mav) {
-//        return heloContoller.index(mydata, mav);
+//        return heloController.index(mydata, mav);
 //    }
 //
 //    @RequestMapping(value="/", method= RequestMethod.POST)
 //    @Transactional(readOnly = false)
 //    public ModelAndView form(@ModelAttribute("formModel") MyData mydata, ModelAndView mav) {
-//        return heloContoller.form(mydata, mav);
+//        return heloController.form(mydata, mav);
 //    }
 
     @PostConstruct
     public void init() {
-        heloContoller.init();
+        heloController.init();
     }
 //
 //    @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
 //    public ModelAndView edit(@ModelAttribute MyData mydata, @PathVariable int id, ModelAndView mav) {
-//        return heloContoller.edit(mydata, id, mav);
+//        return heloController.edit(mydata, id, mav);
 //    }
 //
 //    @RequestMapping(value="/edit", method=RequestMethod.POST)
 //    public ModelAndView update(@ModelAttribute MyData mydata, ModelAndView mav) {
-//        return heloContoller.update(mydata, mav);
+//        return heloController.update(mydata, mav);
 //    }
 }
