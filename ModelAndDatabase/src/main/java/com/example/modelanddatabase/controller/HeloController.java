@@ -56,17 +56,17 @@ public class HeloController {
         d3.setMemo("my work friend. ");
         repository.saveAndFlush(d3);
     }
-//
-//    public ModelAndView edit(MyData mydata, int id, ModelAndView mav) {
-//        mav.setViewName("edit");
-//        mav.addObject("title", "edit mydata.");
-//        MyData data = repository.findBy((long)id);
-//        mav.addObject("formModel", data);
-//        return mav;
-//    }
-//
-//    public ModelAndView update(MyData mydata, ModelAndView mav) {
-//        repository.saveAndFlush(mydata);
-//        return new ModelAndView("redirect:/");
-//    }
+
+    public ModelAndView edit(MyData mydata, int id, ModelAndView mav) {
+        mav.setViewName("edit");
+        mav.addObject("title", "edit mydata.");
+        MyData data = repository.getById((long)id);
+        mav.addObject("formModel", data);
+        return mav;
+    }
+
+    public ModelAndView update(MyData mydata, ModelAndView mav) {
+        repository.saveAndFlush(mydata);
+        return new ModelAndView("redirect:/");
+    }
 }

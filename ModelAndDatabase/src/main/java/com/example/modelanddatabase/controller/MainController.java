@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,14 +36,14 @@ public class MainController {
     public void init() {
         heloController.init();
     }
-//
-//    @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
-//    public ModelAndView edit(@ModelAttribute MyData mydata, @PathVariable int id, ModelAndView mav) {
-//        return heloController.edit(mydata, id, mav);
-//    }
-//
-//    @RequestMapping(value="/edit", method=RequestMethod.POST)
-//    public ModelAndView update(@ModelAttribute MyData mydata, ModelAndView mav) {
-//        return heloController.update(mydata, mav);
-//    }
+
+    @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+    public ModelAndView edit(@ModelAttribute MyData mydata, @PathVariable int id, ModelAndView mav) {
+        return heloController.edit(mydata, id, mav);
+    }
+
+    @RequestMapping(value="/edit", method=RequestMethod.POST)
+    public ModelAndView update(@ModelAttribute MyData mydata, ModelAndView mav) {
+        return heloController.update(mydata, mav);
+    }
 }
