@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Getter
 @Setter
@@ -52,4 +53,9 @@ public class MyData {
     @Column(nullable = true)
     @Phone(onlyNumber=true) // 전화번호가 제대로 맞는지 확인
     private String memo;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @Column(nullable = true)
+    private List<MsgData> msgdatas;
+
 }

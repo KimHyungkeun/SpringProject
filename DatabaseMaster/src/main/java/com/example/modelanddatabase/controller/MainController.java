@@ -3,20 +3,26 @@ package com.example.modelanddatabase.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import com.example.modelanddatabase.vo.MsgData;
 import com.example.modelanddatabase.vo.MyData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 
 @Controller
 
 public class MainController {
+
+    @Autowired
+    MsgDataController msgDataController;
 
     @Autowired
     HeloController heloController;
@@ -78,4 +84,16 @@ public class MainController {
     public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
         return heloController.search(request, mav);
     }
+
+
+    @RequestMapping(value="/msg", method = RequestMethod.GET)
+    public ModelAndView msg(ModelAndView mav) {
+        return msgDataController.msg(mav);
+    }
+
+    @RequestMapping(value="/msg", method = RequestMethod.POST)
+    public ModelAndView msgform(@Valid @ModelAttribute MsgData msgdata, Errors result, ModelAndView mav) {
+        return msgDataController.msgform(msgdata, result, mav);
+    }
+
 }
