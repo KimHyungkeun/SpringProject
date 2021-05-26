@@ -39,7 +39,7 @@ public class HeloController {
         //JpaRepository의 findAll 메소드를 통해 모든 엔터니가 자동 추출된다.
         // MyDataRepository가 JpaRepository로 부터 상속받고 있기 때문
 //        Iterable<MyData> list = repository.findAllOrderByName();
-        Iterable<MyData> list = dao.findByAge(10, 40);
+        Iterable<MyData> list = dao.getAll();
         mav.addObject("datalist", list);
         return mav;
     }
