@@ -1,5 +1,8 @@
 package com.example.modelanddatabase.controller;
 
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+
 import com.example.modelanddatabase.vo.MyData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,5 +67,15 @@ public class MainController {
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     public ModelAndView remove(@RequestParam long id, ModelAndView mav) {
         return heloController.remove(id, mav);
+    }
+
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public ModelAndView find(ModelAndView mav) {
+        return heloController.find(mav);
+    }
+
+    @RequestMapping(value = "/find", method = RequestMethod.POST)
+    public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
+        return heloController.search(request, mav);
     }
 }

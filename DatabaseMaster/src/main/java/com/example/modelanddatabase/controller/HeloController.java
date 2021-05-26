@@ -1,5 +1,8 @@
 package com.example.modelanddatabase.controller;
 
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+
 import com.example.modelanddatabase.dao.MyDataDaoImpl;
 import com.example.modelanddatabase.repositories.MyDataRepository;
 import com.example.modelanddatabase.vo.MyData;
@@ -64,7 +67,7 @@ public class HeloController {
     public void init() {
         dao = new MyDataDaoImpl(entityManager);
         MyData d1 = new MyData();
-        d1.setName("kim");
+        d1.setName("tsuyano");
         d1.setAge(123);
         d1.setMail("kim@gilbut.co.kr");
 //        d1.setMemo("090-999-999");
@@ -121,4 +124,34 @@ public class HeloController {
         repository.deleteById(id);
         return new ModelAndView("redirect:/");
     }
+
+    // HTTPServletRequest를 이용한 메소드
+    public ModelAndView find(ModelAndView mav) {
+        mav.setViewName("find");
+        mav.addObject("title", "Find Page");
+        mav.addObject("msg", "MyData의 예제입니다.");
+        mav.addObject("value", "");
+        Iterable<MyData> list = dao.getAll();
+        mav.addObject("datalist", list);
+        return mav;
+    }
+    
+    // Query를 통해 질의를 응답받으면 그에 맞는 결과를 보여준다
+    public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
+        mav.setViewName("find");
+        String param = request.getParameter("fstr");
+        if (param == "") {
+            mav = new ModelAndView("redirect:/find");
+        } else {
+            mav.addObject("title", "Find result");
+            mav.addObject("msg", "<" + param + ">의 검색 결과");
+            mav.addObject("value", param);
+            List <MyData> list = dao.find(param);
+            mav.addObject("datalist", list);
+        }
+
+        return mav;
+    }
+
+
 }
