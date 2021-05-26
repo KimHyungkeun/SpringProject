@@ -58,4 +58,5 @@ public class MyData {
     @Column(nullable = true)
     private List<MsgData> msgdatas;
 
+
 }
