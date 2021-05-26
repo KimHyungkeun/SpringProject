@@ -11,5 +11,8 @@
 # 3. ModelAndDataBase
 - 제 5장, 모델과 데이터베이스. Entity와 Repository라는 클래스를 이용해 데이터베이스 처리 구현
 
-# 4. Project 
+# 4. DatabaseMaster
+- 제 6장, JPQL, Criteria API를 이용한 데이터 검색 및 엔터티 연계
+
+# 5. Project 
 - SpringBoot를 이용해 기본 출력이나 연산을 진행
