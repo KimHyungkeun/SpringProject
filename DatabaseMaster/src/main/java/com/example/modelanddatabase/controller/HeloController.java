@@ -31,16 +31,29 @@ public class HeloController {
     @Autowired
     MyDataDaoImpl dao;
 
-    // 현재 저장되어있는 모든 데이터를 보여준다.
+    // Repository와 @Query를 이용한 데이터 질의
     public ModelAndView index(MyData mydata, ModelAndView mav) {
         mav.setViewName("index");
-        mav.addObject("msg", "this is sample content.");
+        mav.addObject("title", "Find Page");
+        mav.addObject("msg", "MyData의 예제입니다.");
         //JpaRepository의 findAll 메소드를 통해 모든 엔터니가 자동 추출된다.
         // MyDataRepository가 JpaRepository로 부터 상속받고 있기 때문
-        Iterable<MyData> list = dao.getAll();
+//        Iterable<MyData> list = repository.findAllOrderByName();
+        Iterable<MyData> list = dao.findByAge(10, 40);
         mav.addObject("datalist", list);
         return mav;
     }
+
+    // 현재 저장되어있는 모든 데이터를 보여준다.
+//    public ModelAndView index(MyData mydata, ModelAndView mav) {
+//        mav.setViewName("index");
+//        mav.addObject("msg", "this is sample content.");
+//        //JpaRepository의 findAll 메소드를 통해 모든 엔터니가 자동 추출된다.
+//        // MyDataRepository가 JpaRepository로 부터 상속받고 있기 때문
+//        Iterable<MyData> list = dao.getAll();
+//        mav.addObject("datalist", list);
+//        return mav;
+//    }
     
     // 새 데이터를 추가하고 새로 추가된 형태의 테이블을 다시 새로 불러온다
 //    public ModelAndView form(MyData mydata, ModelAndView mav) {

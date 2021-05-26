@@ -17,6 +17,17 @@ import javax.validation.constraints.NotEmpty;
 // id:메인키로 사용되는 번호, name:이름, mail:메일주소, age:나이, memo:메모
 @Entity //엔터티 클래스라는것을 나타내는 에너테이션
 @Table(name="mydata")
+
+@NamedQueries(
+//    @NamedQuery(
+//            name = "findWithName",
+//            query = "from MyData where name like :fname"
+//    )
+        @NamedQuery(
+        name = "findByAge",
+        query = "from MyData where age > :min and age < :max"
+    )
+)
 public class MyData {
 
     @Id //해당 컬럼을 메인키로 지정
