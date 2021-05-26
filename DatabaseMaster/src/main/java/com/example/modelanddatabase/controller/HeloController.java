@@ -1,5 +1,6 @@
 package com.example.modelanddatabase.controller;
 
+import com.example.modelanddatabase.dao.MyDataDaoImpl;
 import com.example.modelanddatabase.repositories.MyDataRepository;
 import com.example.modelanddatabase.vo.MyData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Controller
 public class HeloController {
@@ -18,13 +22,19 @@ public class HeloController {
     @Autowired
     MyDataRepository repository;
 
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Autowired
+    MyDataDaoImpl dao;
+
     // 현재 저장되어있는 모든 데이터를 보여준다.
     public ModelAndView index(MyData mydata, ModelAndView mav) {
         mav.setViewName("index");
         mav.addObject("msg", "this is sample content.");
         //JpaRepository의 findAll 메소드를 통해 모든 엔터니가 자동 추출된다.
         // MyDataRepository가 JpaRepository로 부터 상속받고 있기 때문
-        Iterable<MyData> list = repository.findAll();
+        Iterable<MyData> list = dao.getAll();
         mav.addObject("datalist", list);
         return mav;
     }
@@ -52,13 +62,15 @@ public class HeloController {
 
     //     아래 내용을 통해 미리 여러 데이터들을 생성해 놓는다.
     public void init() {
+        dao = new MyDataDaoImpl(entityManager);
         MyData d1 = new MyData();
         d1.setName("kim");
         d1.setAge(123);
         d1.setMail("kim@gilbut.co.kr");
 //        d1.setMemo("090-999-999");
         d1.setMemo("090999999"); // 하이픈(-) 없이 오직 번호만
-        repository.saveAndFlush(d1);
+//        repository.saveAndFlush(d1);
+        repository.save(d1);
 
         MyData d2 = new MyData();
         d2.setName("lee");
@@ -66,7 +78,8 @@ public class HeloController {
         d2.setMail("lee@flower");
 //        d2.setMemo("080-888-888");
         d2.setMemo("080888888"); // 하이픈(-) 없이 오직 번호만
-        repository.saveAndFlush(d2);
+//        repository.saveAndFlush(d2);
+        repository.save(d2);
 
         MyData d3 = new MyData();
         d3.setName("choi");
@@ -74,7 +87,8 @@ public class HeloController {
         d3.setMail("choi@happy");
 //        d3.setMemo("070-777-777");
         d3.setMemo("070777777"); // 하이픈(-) 없이 오직 번호만
-        repository.saveAndFlush(d3);
+//        repository.saveAndFlush(d3);
+        repository.save(d3);
     }
     
     // /edit을 통해 들어와서 작동하는 메소드. edit메소드에서 데이터를 수정하고 update메소드를 통해 POST를 하여 변경을 완료한다
