@@ -3,6 +3,7 @@ package com.example.modelanddatabase.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import com.example.modelanddatabase.service.MyDataService;
 import com.example.modelanddatabase.vo.MsgData;
 import com.example.modelanddatabase.vo.MyData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,13 @@ public class MainController {
     @Autowired
     HeloController heloController;
 
+    @Autowired
+    MyDataService myDataService;
+
     // 현재까지 저장되어 있는 모든 데이터들을 보여준다
     @RequestMapping(value="/", method= RequestMethod.GET)
-    public ModelAndView index(@ModelAttribute("formModel") MyData mydata, ModelAndView mav) {
-        return heloController.index(mydata, mav);
+    public ModelAndView index(ModelAndView mav) {
+        return heloController.index(mav);
     }
     
     // 새로 추가할 데이터를 생성한다

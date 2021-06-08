@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.example.modelanddatabase.dao.MyDataDaoImpl;
 import com.example.modelanddatabase.repositories.MyDataRepository;
+import com.example.modelanddatabase.service.MyDataService;
 import com.example.modelanddatabase.vo.MyData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,18 +32,30 @@ public class HeloController {
     @Autowired
     MyDataDaoImpl dao;
 
-    // Repository와 @Query를 이용한 데이터 질의
-    public ModelAndView index(MyData mydata, ModelAndView mav) {
+    @Autowired
+    MyDataService service;
+
+    public ModelAndView index(ModelAndView mav) {
         mav.setViewName("index");
         mav.addObject("title", "Find Page");
         mav.addObject("msg", "MyData의 예제입니다.");
-        //JpaRepository의 findAll 메소드를 통해 모든 엔터니가 자동 추출된다.
-        // MyDataRepository가 JpaRepository로 부터 상속받고 있기 때문
-//        Iterable<MyData> list = repository.findAllOrderByName();
-        Iterable<MyData> list = dao.getAll();
+        List<MyData> list = service.getAll();
         mav.addObject("datalist", list);
         return mav;
     }
+    
+    // Repository와 @Query를 이용한 데이터 질의
+//    public ModelAndView index(MyData mydata, ModelAndView mav) {
+//        mav.setViewName("index");
+//        mav.addObject("title", "Find Page");
+//        mav.addObject("msg", "MyData의 예제입니다.");
+//        //JpaRepository의 findAll 메소드를 통해 모든 엔터니가 자동 추출된다.
+//        // MyDataRepository가 JpaRepository로 부터 상속받고 있기 때문
+////        Iterable<MyData> list = repository.findAllOrderByName();
+//        Iterable<MyData> list = dao.getAll();
+//        mav.addObject("datalist", list);
+//        return mav;
+//    }
 
     // 현재 저장되어있는 모든 데이터를 보여준다.
 //    public ModelAndView index(MyData mydata, ModelAndView mav) {
@@ -137,19 +150,29 @@ public class HeloController {
         repository.deleteById(id);
         return new ModelAndView("redirect:/");
     }
-
-    // HTTPServletRequest를 이용한 메소드
+    
+    // 컨트롤러에서 서비스 Bean 사용
     public ModelAndView find(ModelAndView mav) {
         mav.setViewName("find");
         mav.addObject("title", "Find Page");
         mav.addObject("msg", "MyData의 예제입니다.");
         mav.addObject("value", "");
-        Iterable<MyData> list = dao.getAll();
+        List<MyData> list = service.getAll();
         mav.addObject("datalist", list);
         return mav;
     }
-    
-    // Query를 통해 질의를 응답받으면 그에 맞는 결과를 보여준다
+    // HTTPServletRequest를 이용한 메소드
+//    public ModelAndView find(ModelAndView mav) {
+//        mav.setViewName("find");
+//        mav.addObject("title", "Find Page");
+//        mav.addObject("msg", "MyData의 예제입니다.");
+//        mav.addObject("value", "");
+//        Iterable<MyData> list = dao.getAll();
+//        mav.addObject("datalist", list);
+//        return mav;
+//    }
+
+
     public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
         mav.setViewName("find");
         String param = request.getParameter("fstr");
@@ -157,14 +180,29 @@ public class HeloController {
             mav = new ModelAndView("redirect:/find");
         } else {
             mav.addObject("title", "Find result");
-            mav.addObject("msg", "<" + param + ">의 검색 결과");
-            mav.addObject("value", param);
-            List <MyData> list = dao.find(param);
+            mav.addObject("msg", "<" + param + "> 의 검색 결과");
+            mav.addObject("value",param);
+            List<MyData> list = service.find(param);
             mav.addObject("datalist", list);
         }
-
         return mav;
     }
+    // Query를 통해 질의를 응답받으면 그에 맞는 결과를 보여준다
+//    public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
+//        mav.setViewName("find");
+//        String param = request.getParameter("fstr");
+//        if (param == "") {
+//            mav = new ModelAndView("redirect:/find");
+//        } else {
+//            mav.addObject("title", "Find result");
+//            mav.addObject("msg", "<" + param + ">의 검색 결과");
+//            mav.addObject("value", param);
+//            List <MyData> list = dao.find(param);
+//            mav.addObject("datalist", list);
+//        }
+//
+//        return mav;
+//    }
 
 
 }
