@@ -219,12 +219,12 @@ public class HeloController {
     }
 
     public ModelAndView page(Integer num, ModelAndView mav) {
-        Page<MyData> page = service.getMyDataInPage(num);
+//        Page<MyData> page = service.getMyDataInPage(num);
         mav.setViewName("index");
         mav.addObject("title", "Find Page");
         mav.addObject("msg", "MyData의 예제입니다.");
         mav.addObject("pagenumber", num);
-        mav.addObject("datalist", page);
+//        mav.addObject("datalist", page);
         return mav;
     }
 

@@ -32,10 +32,10 @@ public class MyDataService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Page<MyData> getMyDataInPage(Integer pageNumber) {
-        PageRequest pageRequest = new PageRequest(pageNumber-1, PAGE_SIZE);
-        return repository.findAll(pageRequest);
-    }
+//    public Page<MyData> getMyDataInPage(Integer pageNumber) {
+//        PageRequest pageRequest = new PageRequest(pageNumber-1, PAGE_SIZE);
+//        return repository.findAll(pageRequest);
+//    }
 
     public List<MyData> getAll() {
         return (List<MyData>) entityManager.createQuery("from MyData").getResultList();
