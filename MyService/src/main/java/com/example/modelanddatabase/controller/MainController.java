@@ -31,6 +31,9 @@ public class MainController {
     @Autowired
     MyDataService myDataService;
 
+    @Autowired
+    MyDataRestController myDataRestController;
+
     // 현재까지 저장되어 있는 모든 데이터들을 보여준다
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ModelAndView index(ModelAndView mav) {
@@ -99,5 +102,16 @@ public class MainController {
     public ModelAndView msgform(@Valid @ModelAttribute MsgData msgdata, Errors result, ModelAndView mav) {
         return msgDataController.msgform(msgdata, result, mav);
     }
+
+    @RequestMapping(value = "/rest")
+    public List<MyData> restAll() {
+        return myDataRestController.restAll();
+    }
+
+    @RequestMapping(value = "/rest/{num}")
+    public MyData restBy(@PathVariable int num) {
+        return myDataRestController.restBy(num);
+    }
+
 
 }
