@@ -1,6 +1,7 @@
 # SpringBoot 프로그래밍 입문
 - 참고서적 : 스프링부트 프로그래밍 입문, 쇼다 츠야노, 길벗
 - 사용 Tool : IntelliJ 30일 무료판 (21/05/19 ~ )
+- 실질적 내용은 3장 ~ 7장
 
 # 1. MyBootApp 
 - 제 3장, 자바를 이용한 스프링 부트 개발의 기본. RestController와 Controller 사용 방법
