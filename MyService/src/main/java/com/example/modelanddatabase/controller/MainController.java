@@ -44,20 +44,20 @@ public class MainController {
     }
     
     // 새로 추가할 데이터를 생성한다
-//    @RequestMapping(value="/", method= RequestMethod.POST)
-//    @Transactional(readOnly = false)
-//    public ModelAndView form(@ModelAttribute("formModel") MyData mydata, ModelAndView mav) {
-//        return heloController.form(mydata, mav);
-//    }
-
-    // 새로 추가할 데이터를 생성하되, 올바른 데이터 입력이 들어가지 않으면 에러처리한다
     @RequestMapping(value="/", method= RequestMethod.POST)
     @Transactional(readOnly = false)
-    public ModelAndView form(@ModelAttribute("formModel") @Validated MyData mydata, BindingResult result, ModelAndView mav) {
-        return heloController.form(mydata, result ,mav);
+    public ModelAndView form(@RequestParam("name") String name, @RequestParam("memo") String memo, ModelAndView mov) {
+        return heloController.form(name, memo, mov);
     }
+
+    // 새로 추가할 데이터를 생성하되, 올바른 데이터 입력이 들어가지 않으면 에러처리한다
+//    @RequestMapping(value="/", method= RequestMethod.POST)
+//    @Transactional(readOnly = false)
+//    public ModelAndView form(@ModelAttribute("formModel") @Validated MyData mydata, BindingResult result, ModelAndView mav) {
+//        return heloController.form(mydata, result ,mav);
+//    }
     
-    // 초기에 데이터 몇 개를 미리 생성해놓는다
+//     초기에 데이터 몇 개를 미리 생성해놓는다
     @PostConstruct
     public void init() {
         heloController.init();
@@ -91,10 +91,9 @@ public class MainController {
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.POST)
-    public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
-        return heloController.search(request, mav);
+    public ModelAndView search(@RequestParam("find") String param, ModelAndView mav) {
+        return heloController.search(param, mav);
     }
-
 
     @RequestMapping(value="/msg", method = RequestMethod.GET)
     public ModelAndView msg(ModelAndView mav) {

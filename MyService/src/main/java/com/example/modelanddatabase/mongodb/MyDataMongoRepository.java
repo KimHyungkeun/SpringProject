@@ -1,7 +1,10 @@
 package com.example.modelanddatabase.mongodb;
 
-import com.example.modelanddatabase.mongodb.MyDataMongo
+import com.example.modelanddatabase.mongodb.MyDataMongo;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface MyDataMongoRepository extends {
+import java.util.List;
 
+public interface MyDataMongoRepository extends MongoRepository<MyDataMongo, Long> {
+    public List<MyDataMongo> findByName(String s);
 }

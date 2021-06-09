@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.example.modelanddatabase.config.MyDataBean;
 import com.example.modelanddatabase.dao.MyDataDaoImpl;
+import com.example.modelanddatabase.mongodb.MyDataMongo;
+import com.example.modelanddatabase.mongodb.MyDataMongoRepository;
 import com.example.modelanddatabase.repositories.MyDataRepository;
 import com.example.modelanddatabase.service.MyDataService;
 import com.example.modelanddatabase.vo.MyData;
@@ -28,6 +30,9 @@ public class HeloController {
     @Autowired
     MyDataRepository repository;
 
+    @Autowired
+    MyDataMongoRepository mongoRepository;
+
     @PersistenceContext
     EntityManager entityManager;
 
@@ -39,60 +44,34 @@ public class HeloController {
 
     @Autowired
     MyDataBean myDataBean;
-
+    
+    // MongoDB를 이용한 데이터 탐색
     public ModelAndView index(ModelAndView mav) {
         mav.setViewName("index");
         mav.addObject("title", "Find Page");
-        mav.addObject("msg", "MyData의 예제입니다.");
-        List<MyData> list = service.getAll();
+        mav.addObject("msg", "MyDataMongo의 예제입니다.");
+        Iterable<MyDataMongo> list = mongoRepository.findAll();
         mav.addObject("datalist", list);
         return mav;
     }
-    
-    // Repository와 @Query를 이용한 데이터 질의
-//    public ModelAndView index(MyData mydata, ModelAndView mav) {
+//    public ModelAndView index(ModelAndView mav) {
 //        mav.setViewName("index");
 //        mav.addObject("title", "Find Page");
 //        mav.addObject("msg", "MyData의 예제입니다.");
-//        //JpaRepository의 findAll 메소드를 통해 모든 엔터니가 자동 추출된다.
-//        // MyDataRepository가 JpaRepository로 부터 상속받고 있기 때문
-////        Iterable<MyData> list = repository.findAllOrderByName();
-//        Iterable<MyData> list = dao.getAll();
-//        mav.addObject("datalist", list);
-//        return mav;
-//    }
-
-    // 현재 저장되어있는 모든 데이터를 보여준다.
-//    public ModelAndView index(MyData mydata, ModelAndView mav) {
-//        mav.setViewName("index");
-//        mav.addObject("msg", "this is sample content.");
-//        //JpaRepository의 findAll 메소드를 통해 모든 엔터니가 자동 추출된다.
-//        // MyDataRepository가 JpaRepository로 부터 상속받고 있기 때문
-//        Iterable<MyData> list = dao.getAll();
+//        List<MyData> list = service.getAll();
 //        mav.addObject("datalist", list);
 //        return mav;
 //    }
     
-    // 새 데이터를 추가하고 새로 추가된 형태의 테이블을 다시 새로 불러온다
-//    public ModelAndView form(MyData mydata, ModelAndView mav) {
-//        repository.saveAndFlush(mydata);
-//        return new ModelAndView("redirect:/");
-//    }
 
-    public ModelAndView form(MyData mydata, BindingResult result, ModelAndView mav) {
-        ModelAndView res = null;
-        if (!result.hasErrors()) {
-            repository.saveAndFlush(mydata);
-            res = new ModelAndView("redirect:/");
-        } else {
-            mav.setViewName("index");
-            mav.addObject("msg", "sorry, error is occured...");
-            Iterable<MyData> list = repository.findAll();
-            mav.addObject("datalist", list);
-            res = mav;
-        }
-        return res;
+
+    public ModelAndView form(String name, String memo, ModelAndView mov) {
+        MyDataMongo mydata = new MyDataMongo(name, memo);
+        mongoRepository.save(mydata);
+        return new ModelAndView("redirect:/");
     }
+
+
 
     //     아래 내용을 통해 미리 여러 데이터들을 생성해 놓는다.
     public void init() {
@@ -155,17 +134,28 @@ public class HeloController {
         repository.deleteById(id);
         return new ModelAndView("redirect:/");
     }
-    
-    // 컨트롤러에서 서비스 Bean 사용
+
+    // MongoDB 사용
     public ModelAndView find(ModelAndView mav) {
         mav.setViewName("find");
         mav.addObject("title", "Find Page");
         mav.addObject("msg", "MyData의 예제입니다.");
         mav.addObject("value", "");
-        List<MyData> list = service.getAll();
+        List<MyDataMongo> list = mongoRepository.findAll();
         mav.addObject("datalist", list);
         return mav;
     }
+    
+    // 컨트롤러에서 서비스 Bean 사용
+//    public ModelAndView find(ModelAndView mav) {
+//        mav.setViewName("find");
+//        mav.addObject("title", "Find Page");
+//        mav.addObject("msg", "MyData의 예제입니다.");
+//        mav.addObject("value", "");
+//        List<MyData> list = service.getAll();
+//        mav.addObject("datalist", list);
+//        return mav;
+//    }
     // HTTPServletRequest를 이용한 메소드
 //    public ModelAndView find(ModelAndView mav) {
 //        mav.setViewName("find");
@@ -177,21 +167,35 @@ public class HeloController {
 //        return mav;
 //    }
 
-
-    public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
+    // MongoDB를 이용한 검색
+    public ModelAndView search(String param, ModelAndView mav) {
         mav.setViewName("find");
-        String param = request.getParameter("fstr");
         if (param == "") {
             mav = new ModelAndView("redirect:/find");
         } else {
             mav.addObject("title", "Find result");
             mav.addObject("msg", "<" + param + "> 의 검색 결과");
             mav.addObject("value",param);
-            List<MyData> list = service.find(param);
+            List<MyDataMongo> list = mongoRepository.findByName(param);
             mav.addObject("datalist", list);
         }
         return mav;
     }
+
+//    public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
+//        mav.setViewName("find");
+//        String param = request.getParameter("fstr");
+//        if (param == "") {
+//            mav = new ModelAndView("redirect:/find");
+//        } else {
+//            mav.addObject("title", "Find result");
+//            mav.addObject("msg", "<" + param + "> 의 검색 결과");
+//            mav.addObject("value",param);
+//            List<MyData> list = service.find(param);
+//            mav.addObject("datalist", list);
+//        }
+//        return mav;
+//    }
     // Query를 통해 질의를 응답받으면 그에 맞는 결과를 보여준다
 //    public ModelAndView search(HttpServletRequest request, ModelAndView mav) {
 //        mav.setViewName("find");
