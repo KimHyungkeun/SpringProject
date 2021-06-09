@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ModelAndDatabaseApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ModelAndDatabaseApplication.class, args);
+
+//        SpringApplication.run(ModelAndDatabaseApplication.class, args);
+        SpringApplication.run(ModelAndDatabaseApplication.class, new String[]{"100"});
     }
 
 }

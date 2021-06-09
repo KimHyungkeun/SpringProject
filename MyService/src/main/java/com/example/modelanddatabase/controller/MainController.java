@@ -3,6 +3,7 @@ package com.example.modelanddatabase.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import com.example.modelanddatabase.component.MySampleBean;
 import com.example.modelanddatabase.service.MyDataService;
 import com.example.modelanddatabase.vo.MsgData;
 import com.example.modelanddatabase.vo.MyData;
@@ -33,6 +34,8 @@ public class MainController {
 
     @Autowired
     MyDataRestController myDataRestController;
+
+
 
     // 현재까지 저장되어 있는 모든 데이터들을 보여준다
     @RequestMapping(value="/", method= RequestMethod.GET)
@@ -112,6 +115,11 @@ public class MainController {
     public MyData restBy(int num) {
         return myDataRestController.restBy(num);
     }
+
+    public int count() {
+        return myDataRestController.count();
+    }
+
 
 
 }
