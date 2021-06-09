@@ -219,6 +219,8 @@ public class HeloController {
     }
 
     public ModelAndView page(Integer num, ModelAndView mav) {
+        // PageRequest 내에 들어갈 생성자 인자가 int, int, Sort 라고 하는데
+        // Sort 인스턴스 생성에 대해 어떻게 해야할지 몰라서 일시 보류
 //        Page<MyData> page = service.getMyDataInPage(num);
         mav.setViewName("index");
         mav.addObject("title", "Find Page");

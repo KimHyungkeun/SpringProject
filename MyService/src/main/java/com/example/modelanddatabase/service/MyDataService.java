@@ -31,7 +31,9 @@ public class MyDataService {
 
     @PersistenceContext
     private EntityManager entityManager;
-
+        
+    // PageRequest 내에 들어갈 생성자 인자가 int, int, Sort 라고 하는데
+    // Sort 인스턴스 생성에 대해 어떻게 해야할지 몰라서 일시 보류
 //    public Page<MyData> getMyDataInPage(Integer pageNumber) {
 //        PageRequest pageRequest = new PageRequest(pageNumber-1, PAGE_SIZE);
 //        return repository.findAll(pageRequest);
