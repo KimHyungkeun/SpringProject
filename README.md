@@ -14,5 +14,9 @@
 # 4. DatabaseMaster
 - 제 6장, JPQL, Criteria API를 이용한 데이터 검색 및 엔터티 연계
 
+# 5. MyService
+- 제 7장, 서비스, 컴포넌트, 설정 클래스, 페이지 매김, 타임리프 유틸리티 객체, MongoDB 간단 활용
+- 이 중, 페이지 매김과 타임리프 유틸리티 객체는 code상의 애로사항이 있어 일시 보류
+
 # 5. Project 
 - SpringBoot를 이용해 기본 출력이나 연산을 진행
