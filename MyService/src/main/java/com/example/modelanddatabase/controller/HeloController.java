@@ -3,6 +3,7 @@ package com.example.modelanddatabase.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import com.example.modelanddatabase.config.MyDataBean;
 import com.example.modelanddatabase.dao.MyDataDaoImpl;
 import com.example.modelanddatabase.repositories.MyDataRepository;
 import com.example.modelanddatabase.service.MyDataService;
@@ -34,6 +35,9 @@ public class HeloController {
 
     @Autowired
     MyDataService service;
+
+    @Autowired
+    MyDataBean myDataBean;
 
     public ModelAndView index(ModelAndView mav) {
         mav.setViewName("index");
@@ -203,6 +207,15 @@ public class HeloController {
 //
 //        return mav;
 //    }
+
+    public ModelAndView indexById(long id, ModelAndView mav) {
+        mav.setViewName("pickup");
+        mav.addObject("title", "Pickup Page");
+        String table = "<table>" + myDataBean.getTableTagById(id) + "</table>";
+        mav.addObject("msg", "pickup data id = " + id);
+        mav.addObject("data", table);
+        return mav;
+    }
 
 
 }

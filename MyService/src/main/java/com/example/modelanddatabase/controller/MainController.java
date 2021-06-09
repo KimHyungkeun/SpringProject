@@ -120,6 +120,11 @@ public class MainController {
         return myDataRestController.count();
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ModelAndView indexById(@PathVariable long id, ModelAndView mav) {
+        return heloController.indexById(id, mav);
+    }
+
 
 
 }
