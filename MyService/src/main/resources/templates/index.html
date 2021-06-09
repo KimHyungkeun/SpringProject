@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Title</title>
+  <title>top page</title>
   <meta http-equiv="content-type"
         content="text/html"; charset="UTF-8" />
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script th:inline="javascript">
+      $(document).ready(function(){
+        var num = [[${param.id[0]}]];
+        $.get("/rest/" + num, null, callback);
+      });
+      function callback(result) {
+        $('#obj').append('<li>id: ' + result.id + '</li>');
+        $('#obj').append('<li>name: ' + result.name + '</li>');
+        $('#obj').append('<li>mail: ' + result.mail + '</li>');
+        $('#obj').append('<li>age: ' + result.age + '</li>');
+        $('#obj').append('<li>memo: ' + result.memo + '</li>');
+      }
+    </script>
   <style>
     h1 { font-size:18pt; font-weight:bold; color:gray; }
     body { font-size:13pt; color:gray; margin:5px 25px; }
@@ -16,6 +30,7 @@
 <body>
 <h1 th:text="#{content.title}">Helo page</h1>
 <p th:text="${msg}"></p>
+<ol id="obj"></ol>
 <table>
   <tr><th>ID</th><th>이름</th><th>메일</th><th>연령</th><th>메모(tel)</th></tr>
   <tr th:each="obj : ${datalist}">
@@ -25,31 +40,8 @@
     <td th:text="${obj.age}"></td>
     <td th:text="${obj.memo}"></td>
   </tr>
-<!--  <form method="post" action="/" th:object="${formModel}">-->
-<!--    <ul>-->
-<!--      <li th:each="error : ${#fields.detailedErrors()}"-->
-<!--          class="err" th:text="${error.message}"/>-->
-<!--    </ul>-->
-<!--    <tr><td><label for="name">이름</label></td>-->
-<!--      <td><input type="text" name="name" th:value="*{name}" th:errorclass="err"/>-->
-<!--      <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="err">-->
-<!--      </div></td></tr>-->
-<!--    <tr><td><label for="name">연령</label></td>-->
-<!--      <td><input type="text" name="age" th:value="*{age}" th:errorclass="err"/>-->
-<!--        <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" th:errorclass="err">-->
-<!--        </div></td></tr>-->
-<!--    <tr><td><label for="name">메일</label></td>-->
-<!--      <td><input type="text" name="mail" th:value="*{mail}" th:errorclass="err"/>-->
-<!--        <div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" th:errorclass="err">-->
-<!--        </div></td></tr>-->
-<!--    <tr><td><label for="memo">메모</label></td>-->
-<!--      <td><textarea  name="memo" th:field="*{memo}" th:errorclass="err"-->
-<!--                     cols="20" rows="5"></textarea>-->
-<!--      <div th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}" th:errorclass="err"}></div></td></tr>-->
-<!--    <tr><td></td><td><input type="submit" /></td></tr>-->
-<!--  </form>-->
+
 </table>
 
-<!--  <pre th:text="${data}"></pre>-->
 </body>
 </html>

@@ -103,13 +103,13 @@ public class MainController {
         return msgDataController.msgform(msgdata, result, mav);
     }
 
-    @RequestMapping(value = "/rest")
+
     public List<MyData> restAll() {
         return myDataRestController.restAll();
     }
 
-    @RequestMapping(value = "/rest/{num}")
-    public MyData restBy(@PathVariable int num) {
+
+    public MyData restBy(int num) {
         return myDataRestController.restBy(num);
     }
 

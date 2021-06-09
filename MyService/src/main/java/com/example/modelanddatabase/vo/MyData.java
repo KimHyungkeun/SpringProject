@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 @Getter
@@ -27,8 +28,10 @@ import java.util.List;
         @NamedQuery(
         name = "findByAge",
         query = "from MyData where age > :min and age < :max"
-    )
+     )
 )
+
+@XmlRootElement
 public class MyData {
 
     @Id //해당 컬럼을 메인키로 지정
