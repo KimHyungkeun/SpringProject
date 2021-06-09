@@ -125,6 +125,11 @@ public class MainController {
         return heloController.indexById(id, mav);
     }
 
+    @RequestMapping(value = "/page/{num}", method = RequestMethod.GET)
+    public ModelAndView page(@PathVariable Integer num, ModelAndView mav) {
+        return heloController.page(num, mav);
+    }
+
 
 
 }

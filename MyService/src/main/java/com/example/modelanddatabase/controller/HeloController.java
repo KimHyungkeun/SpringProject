@@ -9,6 +9,7 @@ import com.example.modelanddatabase.repositories.MyDataRepository;
 import com.example.modelanddatabase.service.MyDataService;
 import com.example.modelanddatabase.vo.MyData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindingResult;
@@ -214,6 +215,16 @@ public class HeloController {
         String table = "<table>" + myDataBean.getTableTagById(id) + "</table>";
         mav.addObject("msg", "pickup data id = " + id);
         mav.addObject("data", table);
+        return mav;
+    }
+
+    public ModelAndView page(Integer num, ModelAndView mav) {
+        Page<MyData> page = service.getMyDataInPage(num);
+        mav.setViewName("index");
+        mav.addObject("title", "Find Page");
+        mav.addObject("msg", "MyData의 예제입니다.");
+        mav.addObject("pagenumber", num);
+        mav.addObject("datalist", page);
         return mav;
     }
 
